@@ -1,7 +1,6 @@
-// resources/js/components/ReservationsList.js
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+
 
 function ReservationsList() {
     const [reservations, setReservations] = useState([]);
@@ -21,7 +20,6 @@ function ReservationsList() {
 
     return (
         <div>
-            <h2>予約リスト</h2>
             <ul>
                 {reservations.map(reservation => (
                     <li key={reservation.id}>{reservation.user_name} - {reservation.reservation_date}</li>

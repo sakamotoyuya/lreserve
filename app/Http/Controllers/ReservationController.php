@@ -16,8 +16,18 @@ class ReservationController extends Controller
 
     public function store(Request $request)
     {
-        $reservation = Reservation::create($request->all());
+        // logger($request->all());
+        $validatedData = $request->validate([
+            'user_name' => 'required',
+            'email' => 'required|email',
+            'reservation_date' => 'required|date',
+            // その他のフィールドバリデーションルールをここに追加
+        ]);
+
+        $reservation = Reservation::create($validatedData);
         return response()->json($reservation, 201);
+        // $reservation = Reservation::create($request->all());
+        // return response()->json($reservation, 201);
     }
 
     public function show($id)

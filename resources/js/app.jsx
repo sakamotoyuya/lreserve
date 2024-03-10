@@ -1,58 +1,33 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes React and other helpers. It's a great starting point while
- * building robust, powerful web applications using React + Laravel.
- */
-
-// import './bootstrap';
-
-/**
- * Next, we will create a fresh React component instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-// import './components/Example';
-// resources/js/app.js
-
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import ReservationForm from './components/ReservationForm';
-
-// function App() {
-//     return (
-//         <div>
-//             <h1>予約フォーム</h1>
-//             <ReservationForm />
-//         </div>
-//     );
-// }
-
-// if (document.getElementById('app')) {
-//     ReactDOM.render(<App />, document.getElementById('app'));
-// }
-// // resources/js/app.js
-
+// App.jsx
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Layout from './layout/Layout';
 import ReservationForm from './components/ReservationForm';
 import ReservationsList from './components/ReservationsList';
 
 function App() {
     return (
         <Router>
-            <div>
-                <Switch>
-                    <Route path="/reservations/new" component={ReservationForm} />
-                    <Route path="/reservations" component={ReservationsList} />
-                    {/* 他のルート */}
-                </Switch>
-            </div>
-            </Router>
+            <Routes>
+                <Route path="/reservations/new" element={
+                    <Layout title="新しい予約">
+                        <ReservationForm />
+                    </Layout>
+                } />
+                <Route path="/reservations" element={
+                    <Layout title="予約一覧">
+                        <ReservationsList />
+                    </Layout>
+                } />
+                {/* 他のルートも同様に */}
+            </Routes>
+        </Router>
     );
 }
 
-if (document.getElementById('app')) {
-    ReactDOM.render(<App />, document.getElementById('app'));
+const container = document.getElementById('app');
+if (container) {
+    const root = createRoot(container);
+    root.render(<App />);
 }
